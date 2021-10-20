@@ -7,6 +7,7 @@ const QuestionBox = ({question,options, selected}) =>{
             <div className="question">
                 {question}
             </div>
+            <h1>new commit changes</h1>
 
             {answer.map((text, index)=>(
                 <button key={index} className="answerBtn" onClick={()=>{

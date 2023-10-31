@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import  { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -81,8 +81,6 @@ li {
   list-style: none;
 }
 
-
-${"" /* resuable code section  */}
 
 .container {
   max-width: 120rem;
@@ -177,4 +175,4 @@ input, textarea{
         }
     }
 
-`;
+`

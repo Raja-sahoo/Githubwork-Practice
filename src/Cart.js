@@ -1,7 +1,68 @@
 import styled from "styled-components";
-
+import { useCartContext } from "./context/cart_context";
+import { NavLink } from "react-router-dom";
+import { Button } from "./styles/Button";
+import CartItem from "./components/CartItem";
+import FormatPrice from "./Helpers/FormatPrice";
 const Cart = () => {
-  return <Wrapper></Wrapper>;
+  let { cart, clearCart, total_price, shipping_fee } = useCartContext();
+  // console.log(cart);
+  if (cart.length === 0) {
+    return (
+      <div>
+        <h3>No Cart in Item </h3>
+      </div>
+    );
+  }
+  return (
+    <Wrapper>
+      <div className="cart_heading grid grid-five-column">
+        <p>Item</p>
+        <p className="cart-hide">Price</p>
+        <p>Quantity</p>
+        <p className="cart-hide">Subtotal</p>
+        <p>Remove</p>
+      </div>
+      <hr />
+      <div className="cart-item">
+        {cart.map((curElem) => {
+          return <CartItem key={curElem.id} {...curElem} />;
+        })}
+      </div>
+      <hr />
+      <div className="cart-two-button">
+        <NavLink to="/products">
+          <Button> continue Shopping </Button>
+        </NavLink>
+        <Button className="btn btn-clear" onClick={clearCart}>
+          clear cart
+        </Button>
+      </div>
+      <div className="order-total--amount">
+        <div className="order-total--subData">
+          <div>
+            <p>Subtotal: </p>
+            <p>
+              <FormatPrice price={total_price} />
+            </p>
+          </div>
+          <div>
+            <p>Shipping fee:</p>
+            <p>
+              <FormatPrice price={shipping_fee} />
+            </p>
+          </div>
+        </div>
+        <hr />
+        <div>
+          <p>Order Total:</p>
+          <p>
+            <FormatPrice price={shipping_fee + total_price} />
+          </p>
+        </div>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
@@ -123,7 +184,7 @@ const Wrapper = styled.section`
     justify-content: flex-end;
     align-items: flex-end;
 
-    .order-total--subdata {
+    .order-total--subData {
       border: 0.1rem solid #f0f0f0;
       display: flex;
       flex-direction: column;
@@ -167,7 +228,7 @@ const Wrapper = styled.section`
       justify-content: flex-start;
       align-items: flex-start;
 
-      .order-total--subdata {
+      .order-total--subData {
         width: 100%;
         border: 0.1rem solid #f0f0f0;
         display: flex;
